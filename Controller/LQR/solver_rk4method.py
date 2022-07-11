@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def rk4method(func, ic, times):
     N = len(times)
     h = times[1] - times[0]
