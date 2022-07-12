@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.spatial.transform import Rotation as Rot
-from lqr_dynamics import *
-from lqr_controller import *
-from solver_rk4method import *
+
+import lqr_controller
+import lqr_dynamics
+import solver_rk4method
 
 # initial conditions
 initial_ori_euler = Rot.from_euler('xyz', [10, 30, 20], degrees=True)
@@ -11,8 +12,8 @@ q_BI = initial_ori_euler.as_quat()[0:3]
 w_BIB = np.array([0.1, 0.01, 0.2])
 x_init = np.concatenate((q_BI, w_BIB))
 time = np.linspace(1, 20, 20000)
-sol = rk4method(nonlinear_dynamics, x_init, time)
-st_u = control_law(sol.T).T
+sol = solver_rk4method.rk4method(lqr_dynamics.nonlinear_dynamics, x_init, time)
+st_u = lqr_controller.control_law(sol.T).T
 q0_BI = (1 - sol[:, 0] ** 2 - sol[:, 1] ** 2 - sol[:, 2] ** 2) ** 0.5
 euler_angles = np.zeros([sol.shape[0], 3])
 for i in range(sol.shape[0]):
@@ -57,7 +58,7 @@ plt.ylabel('quaternion')
 plt.xlabel('time')
 plt.legend(['q1', 'q2', 'q3'])
 
-# plt.show()
+plt.show()
 print(euler_angles)
 
 
