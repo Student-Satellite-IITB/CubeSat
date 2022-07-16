@@ -19,8 +19,8 @@ def initialize_gain():
 
 
 gain = initialize_gain()
-print(gain.shape)
 
 
 def control_law(x):
+    x += np.random.normal(scale=0.00001, size=6)
     return np.dot(gain, x)

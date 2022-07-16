@@ -18,4 +18,4 @@ m_B = np.concatenate((m_I_inv, np.zeros((3, 3))))
 
 m_Q1 = np.diag((1, 1, 1))
 m_Q2 = np.diag((1, 1, 1))
-scal_R = 0.001
+scal_R = 0.0001

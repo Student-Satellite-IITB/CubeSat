@@ -11,9 +11,11 @@ initial_ori_euler = Rot.from_euler('xyz', [10, 30, 20], degrees=True)
 q_BI = initial_ori_euler.as_quat()[0:3]
 w_BIB = np.array([0.1, 0.01, 0.2])
 x_init = np.concatenate((q_BI, w_BIB))
-time = np.linspace(1, 20, 20000)
+time = np.linspace(1, 30, 30000)
 sol = solver_rk4method.rk4method(lqr_dynamics.nonlinear_dynamics, x_init, time)
-st_u = lqr_controller.control_law(sol.T).T
+# st_u = lqr_controller.control_law(sol.T).T
+K = lqr_controller.initialize_gain()
+st_u = K.dot(sol.T).T
 q0_BI = (1 - sol[:, 0] ** 2 - sol[:, 1] ** 2 - sol[:, 2] ** 2) ** 0.5
 euler_angles = np.zeros([sol.shape[0], 3])
 for i in range(sol.shape[0]):
