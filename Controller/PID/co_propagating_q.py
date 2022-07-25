@@ -36,3 +36,12 @@ def co_propagatin_q_IB(q_0, q_1, q_2, q_3, P, Q, R, h):
     q_IB_next = q_IB + ((h/6)*(a + 2*b + 2*c + d))
 
     return q_IB_next
+
+q = np.array([-0.3061862, 0.4355957, -0.6597396, 0.5303301])
+P = 0.5
+Q = 0.5
+R = 0.5
+for i in range(2000):
+    q_next = co_propagatin_q_IB(q[0], q[1], q[2], q[3], P, Q, R, 1)
+    print(np.sqrt(np.sum(q**2)))
+    q = q_next
