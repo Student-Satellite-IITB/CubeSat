@@ -14,7 +14,7 @@ def co_dynamic_function(K, T_i, W_i2, W_i3, w_i2, w_i3, I_i2, I_i3, J_par):
     > J_par is the moment of inertia of the reaction wheel about the spin axis
     """
 
-    return -((T_i)+(w_i2*w_i3*(I_i3-I_i2))+(J_par*((W_i3*w_i2)-(W_i2*w_i3))))/(K)
+    return ((T_i)+(w_i2*w_i3*(I_i3-I_i2))+(J_par*((W_i3*w_i2)-(W_i2*w_i3))))/(K)
 
 
 def co_propagating_w_i(w_i1, w_i2, w_i3, I_i1, I_i2, I_i3, T_i1, T_i2, T_i3, W_i1, W_i2, W_i3, J_perp, J_par, h):
