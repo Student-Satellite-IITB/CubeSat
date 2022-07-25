@@ -18,7 +18,7 @@ def co_state(q_actual, q_command):
     sigma_r = (2*q_e[0, 0])*np.array([q_e[0, 1], q_e[0, 2], q_e[0, 3]])
     return sigma_r
 
-def co_armature_current(q_actual, q_command, w_actual, w_command, h, omega_n, zeta, T, I, kr_i, sigma_integrate_prev):
+def co_armature_current(q_actual, q_command, w_actual, w_command, h, omega_n, zeta, T, I, sigma_integrate_prev):
 
     """
     > q_actual: The quaternion that represents a rotation from current/actual body frame to the inertial frame.
@@ -33,12 +33,9 @@ def co_armature_current(q_actual, q_command, w_actual, w_command, h, omega_n, ze
     > kr_i: It the motor torque constant of the i'th motor running the i'th reaction wheel
     """
     
-    R_inv = np.matrix([[I[0]/kr_i, 0, 0],
-                        [0, I[1]/kr_i, 0],
-                        [0, 0, I[2]/kr_i]])
-    K_pr = ((omega_n**2)+((2*zeta*omega_n)/T))*R_inv
-    K_dr = ((2*zeta*omega_n)+(1/T))*R_inv
-    K_ir = ((omega_n**2)/T)*R_inv
+    K_pr = ((omega_n**2)+((2*zeta*omega_n)/T))*I
+    K_dr = ((2*zeta*omega_n)+(1/T))*I
+    K_ir = ((omega_n**2)/T)*I
 
     """
     > R_inv: The inverse of a diagonal matrix whose diagonal entries are the motor torque constants
