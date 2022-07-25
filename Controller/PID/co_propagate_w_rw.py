@@ -1,5 +1,5 @@
 # Author: Ajay Tak
-# Date: 18-06-2022
+# Date: 25-07-2022
 
 def co_actuator_model(J_par, T_i, W_i, b_i, w_i_dot):
 
