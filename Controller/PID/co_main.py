@@ -13,7 +13,7 @@ import co_constants
 
 omega_n = float(input("enter the value for omega_n: "))
 zeta = float(input("enter the value for zeta: "))
-T  = float(input("enter the value for T: "))
+timec  = float(input("enter the value for time constant: "))
 plot_graphs = input("please enter 1 for Yes, and 0 for no only: ")
 
 w = np.array([0.008726, 0.008726, 0.008726]) # initial angular velocity of the satellite (rad/s)
@@ -26,13 +26,16 @@ w_count = []
 W_count = []
 q_count = []
 sigma_integrate = [0, 0 , 0]
+K_p = np.dot(((omega_n**2)+((2*zeta*omega_n)/timec)), np.diag(np.array([co_constants.I_1, co_constants.I_2, co_constants.I_3])))
+K_d = np.dot(((2*zeta*omega_n)+(1/timec)), np.diag(np.array([co_constants.I_1, co_constants.I_2, co_constants.I_3])))
+K_i = np.dot(((omega_n**2)/timec), np.diag(np.array([co_constants.I_1, co_constants.I_2, co_constants.I_3])))
 
 for i in range(3000):
     w_count.append(w)
     W_count.append(W)
     q_count.append(q)
 
-    T = co_Torque(q, q_command, w, w_command, co_constants.H, omega_n, zeta, s, np.diag([co_constants.I_1, co_constants.I_2, co_constants.I_3]), sigma_integrate)
+    T = co_Torque(q, q_command, w, w_command, co_constants.H, sigma_integrate, K_p, K_i, K_d)
     w_new = co_propagating_w_i(w[0], w[1], w[2], co_constants.I_1, co_constants.I_2, co_constants.I_3, T[0], T[1], T[2], W[0], W[1], W[2], co_constants.J_PER, co_constants.J_PAR, co_constants.H)
     W_new = np.array([co_propagating_w_rw_i(co_constants.J_PAR, T[0], W[0], co_constants.B, w_new[0], w[0], co_constants.H),
                       co_propagating_w_rw_i(co_constants.J_PAR, T[1], W[1], co_constants.B, w_new[1], w[1], co_constants.H),
