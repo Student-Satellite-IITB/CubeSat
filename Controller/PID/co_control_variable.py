@@ -14,7 +14,7 @@ def co_state(q_actual, q_command):
                     [-q_command[1],  q_command[0], -q_command[3],  q_command[2]],
                     [-q_command[2],  q_command[3],  q_command[0], -q_command[1]],
                     [-q_command[3], -q_command[2],  q_command[1],  q_command[0]]])
-    q_e = np.dot(M, q_actual)
+    q_e = -np.dot(M, q_actual)
     sigma_r = (2*q_e[0, 0])*np.array([q_e[0, 1], q_e[0, 2], q_e[0, 3]])
     return sigma_r
 
