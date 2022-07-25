@@ -97,3 +97,4 @@ if plot_graphs:
     plt.plot(t, yaw_plot)
     plt.show()
     print([roll_plot[-1], pitch_plot[-1], yaw_plot[-1]])
+    print(q_count[-1])
