@@ -18,7 +18,7 @@ def co_state(q_actual, q_command):
     sigma_r = (2*q_e[0, 0])*np.array([q_e[0, 1], q_e[0, 2], q_e[0, 3]])
     return sigma_r
 
-def co_Torque(q_actual, q_command, w_actual, w_command, h, omega_n, zeta, T, I, sigma_integrate_prev):
+def co_Torque(q_actual, q_command, w_actual, w_command, h, sigma_integrate_prev, Kp, Ki, Kd):
 
     """
     > q_actual: The quaternion that represents a rotation from current/actual body frame to the inertial frame.
@@ -32,11 +32,6 @@ def co_Torque(q_actual, q_command, w_actual, w_command, h, omega_n, zeta, T, I, 
     > I: It is the moment of inertial matrix of the cubesat
     > kr_i: It the motor torque constant of the i'th motor running the i'th reaction wheel
     """
-    
-    K_pr = ((omega_n**2)+((2*zeta*omega_n)/T))*I
-    K_dr = ((2*zeta*omega_n)+(1/T))*I
-    K_ir = ((omega_n**2)/T)*I
-
     """
     > R_inv: The inverse of a diagonal matrix whose diagonal entries are the motor torque constants
     > K_pr: The prortional gain matrix
@@ -44,7 +39,7 @@ def co_Torque(q_actual, q_command, w_actual, w_command, h, omega_n, zeta, T, I, 
     > K_ir: The integrator gain matrix
     """
 
-    u = np.array((np.dot(K_pr, co_state(q_actual, q_command)))+(np.dot(K_dr, w_command-w_actual))+(np.dot(K_ir,sigma_integrate_prev + h*co_state(q_actual, q_command))))
+    u = np.array((np.dot(Kp, co_state(q_actual, q_command)))+(np.dot(Kd, w_command-w_actual))+(np.dot(Ki,sigma_integrate_prev + h*co_state(q_actual, q_command))))
     return u
 
     
