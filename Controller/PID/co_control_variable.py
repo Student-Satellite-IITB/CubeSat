@@ -18,7 +18,7 @@ def co_state(q_actual, q_command):
     sigma_r = (2*q_e[0, 0])*np.array([q_e[0, 1], q_e[0, 2], q_e[0, 3]])
     return sigma_r
 
-def co_armature_current(q_actual, q_command, w_actual, w_command, h, omega_n, zeta, T, I, sigma_integrate_prev):
+def co_Torque(q_actual, q_command, w_actual, w_command, h, omega_n, zeta, T, I, sigma_integrate_prev):
 
     """
     > q_actual: The quaternion that represents a rotation from current/actual body frame to the inertial frame.
