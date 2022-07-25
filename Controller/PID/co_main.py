@@ -18,14 +18,14 @@ plot_graphs = input("please enter 1 for Yes, and 0 for no only: ")
 
 w = np.array([0.008726, 0.008726, 0.008726]) # initial angular velocity of the satellite (rad/s)
 W = np.array([0, 0, 0]) # initial angular velocity of the reaction wheels (rad/s)
-T = np.array([0, 0, 0]) # initial control variable/armature currents (A)
+T = np.array([0, 0, 0]) # initial control Torque (A)
 q = np.array([-0.3061862, 0.4355957, -0.6597396, 0.5303301]) # initial attitude
 q_command = np.array([1, 0, 0, 0])
 w_command = np.array([0, 0, 0])
 w_count = []
 W_count = []
 q_count = []
-sigma_integrate = [0.001, 0.001 , 0.001]
+sigma_integrate = [0, 0 , 0]
 
 for i in range(300):
     w_count.append(w)
