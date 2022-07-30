@@ -6,12 +6,9 @@ import numpy as np
 def co_dynamic_function(I_i1, I_i2, I_i3, T_i1, w_i2, w_i3):
     
     """
-    > K is defined in the function below
-    > T_i is the torque provided by the i'th reaction wheel 
-    > W_i1, W_i2, W_i3, each are the reaction wheel angular velocities
+    > T_i1 is one of the component of the torque provided by magnetorquer
     > w_i2, w_i3 are  2 components of cubesat's angular velocity wrt to earth's inertial frame expressed in body frame
-    > I_i2, I_i3 are the two principle elements of the moment of inertia matrix of the cubesat
-    > J_par is the moment of inertia of the reaction wheel about the spin axis
+    > I_i1, I_i2, I_i3 are the principle elements of the moment of inertia matrix of the cubesat
     """
 
     w_i1_dot = ((w_i2*w_i3*(I_i2-I_i3)) + T_i1)/I_i1
@@ -22,17 +19,10 @@ def co_dynamic_function(I_i1, I_i2, I_i3, T_i1, w_i2, w_i3):
 def co_propagating_w_i(w_1, w_2, w_3, I_1, I_2, I_3, T_1, T_2, T_3, h):
 
     """
-    > w_i1, w_i2, w_i3 are components of cubesat's angular velocity wrt to earth's inertial frame expressed in body frame
-    > I_i1, I_i2, I_i3 are the three principle elements of the moment of inertia matrix
-    > T_i1, T_i2, T_i3 are the three components of the control torque provided by the reaction wheels
-    > W_i1, W_i2, W_i3, each are the reaction wheel angular velocities
-    > J_par is the moment of inertia of the reaction wheel about the spin axis
-    > J_perp is the moment of inertia of the reaction wheel about an axis perpendicular to its spin axis
+    > w_1, w_2, w_3 are components of cubesat's angular velocity wrt to earth's inertial frame expressed in body frame
+    > I_1, I_2, I_3 are the principle elements of the moment of inertia matrix
+    > T_1, T_2, T_3 are the three components of the torque provided by the magnetorquers
     > h is time step
-    """
-  
-    """
-    use of the above constant will be clear in the further steps
     """
 
     a1 = co_dynamic_function(I_1, I_2, I_3, T_1, w_2, w_3)
