@@ -18,7 +18,7 @@ def co_state(q_actual, q_command):
     sigma_r = (2*q_e[0, 0])*np.array([q_e[0, 1], q_e[0, 2], q_e[0, 3]])
     return sigma_r
 
-def co_Torque(q_actual, q_command, w_actual, w_command, h, sigma_integrate_prev, Kp, Ki, Kd):
+def co_current(q_actual, q_command, w_actual, w_command, h, sigma_integrate_prev, Kp, Ki, Kd):
 
     """
     > q_actual: The quaternion that represents a rotation from current/actual body frame to the inertial frame.
@@ -26,17 +26,10 @@ def co_Torque(q_actual, q_command, w_actual, w_command, h, sigma_integrate_prev,
     > w_actual: The current/actual angular velocity of the body frame of the cubesat w.r.t the inertial frame.
     > w_command: The required angular velocity of the body frame of cubesat w.r.t to inertial frame.
     > h: time step
-    > omega_n: It is the linear control bandwidth of the integral controller
-    > zeta: It is the damping ratio of the integral controller
-    > T: It is the time constant of the integral controller
-    > I: It is the moment of inertial matrix of the cubesat
-    > kr_i: It the motor torque constant of the i'th motor running the i'th reaction wheel
-    """
-    """
-    > R_inv: The inverse of a diagonal matrix whose diagonal entries are the motor torque constants
-    > K_pr: The prortional gain matrix
-    > K_dr: The derivative gain matrix
-    > K_ir: The integrator gain matrix
+    > Kp: The prortional gain matrix
+    > Kd: The derivative gain matrix
+    > Kd: The integrator gain matrix
+    > sigma_integrate_prev: integral of sigma from 0 to prev step
     """
 
     u = np.array((np.dot(Kp, co_state(q_actual, q_command)))+(np.dot(Kd, w_command-w_actual))+(np.dot(Ki,sigma_integrate_prev + h*co_state(q_actual, q_command))))
