@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from co_propagating_w import *
 from co_propagating_q import *
-from co_propagate_w_rw import *
+from co_magnetorquers import *
 from co_control_variable import *
 from co_quaternion_to_euler import *
 from co_sort import *
@@ -17,7 +17,6 @@ timec  = float(input("enter the value for time constant: "))
 plot_graphs = input("please enter 1 for Yes, and 0 for no only: ")
 
 w = np.array([0.008726, 0.008726, 0.008726]) # initial angular velocity of the satellite (rad/s)
-W = np.array([0, 0, 0]) # initial angular velocity of the reaction wheels (rad/s)
 s = np.array([0, 0, 0]) # initial control Torque (A)
 q = np.array([-0.3061862, 0.4355957, -0.6597396, 0.5303301]) # initial attitude
 q_command = np.array([1, 0, 0, 0])
