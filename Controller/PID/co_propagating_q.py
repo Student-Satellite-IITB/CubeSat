@@ -35,9 +35,9 @@ def co_propagatin_q_IB(q_0, q_1, q_2, q_3, P, Q, R, h):
     c = co_kinematic_function(q_0+(0.5*h*b[0]), q_1+(0.5*h*b[1]), q_2+(0.5*h*b[2]), q_3+(0.5*h*b[3]), P, Q, R)
     d = co_kinematic_function(q_0+(h*c[0]), q_1+(h*c[1]), q_2+(h*c[2]), q_3+(h*c[3]), P, Q, R)
     q_IB_next = q_IB + ((h/6)*(a + 2*b + 2*c + d))
-    if q_IB_next[0] > 0:
+    '''if q_IB_next[0] > 0:
         q_IB_next[0] = np.sqrt(1-(q_IB[1]**2)-(q_IB[2]**2)-(q_IB[3]**2))
     else:
-        q_IB_next[0] = -np.sqrt(1-(q_IB[1]**2)-(q_IB[2]**2)-(q_IB[3]**2))
+        q_IB_next[0] = -np.sqrt(1-(q_IB[1]**2)-(q_IB[2]**2)-(q_IB[3]**2))'''
         
     return q_IB_next
