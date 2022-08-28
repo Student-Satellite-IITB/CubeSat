@@ -43,10 +43,10 @@ for i in range(270000):
     T = co_actuator_model(i_control_variable, B_body)
     w_new = co_propagating_w_i(w[0], w[1], w[2], co_constants.I_1, co_constants.I_2, co_constants.I_3, T[0], T[1], T[2], co_constants.H)
     q_new = co_propagatin_q_IB(q[0], q[1], q[2], q[3], w[0], w[1], w[2], co_constants.H)
-    print(q_new)
     sigma_integrate = sigma_integrate + (co_constants.H*co_state(q, q_command))
     w = w_new
     q = q_new
+    print(np.sqrt((q[0]**2)+(q[1]**2)+(q[2]**2)+(q[3]**2)))
 
 if plot_graphs:
     t = np.arange(0, 27000, 0.1)   
