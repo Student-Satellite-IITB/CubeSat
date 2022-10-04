@@ -4,8 +4,8 @@ import numpy as np
 import lqr_constants
 
 
-def initialize_gain(t):
-    m_B = lqr_constants.m_B(t)
+def initialize_gain():
+    m_B = lqr_constants.m_B_tiv
     m_R = lqr_constants.scal_R * lqr_constants.m_Q2
     # m_R = np.eye(3)
     m_F11 = np.dot(lqr_constants.m_I, sqrtm(m_R)).dot(sqrtm(lqr_constants.m_Q2))
@@ -22,11 +22,11 @@ def initialize_gain(t):
     return K
 
 
+K = initialize_gain()
+
+
 def control_law(x, t):
-    B = lqr_constants.m_B(t)
-    F = solve_continuous_are(lqr_constants.m_A, B, lqr_constants.m_Q, lqr_constants.m_R)
-    gain = -1 * np.linalg.inv(lqr_constants.m_R).dot(B.T).dot(F)
-    m_tilde = np.dot(gain, x)
-    b = lqr_constants.v_B(t)
-    m = np.cross(m_tilde, b) / np.linalg.norm(b)
+    v_b = lqr_constants.v_B(t)
+    u = np.dot(K, x)
+    m = np.cross(v_b, u) / np.linalg.norm(v_b) ** 2
     return m

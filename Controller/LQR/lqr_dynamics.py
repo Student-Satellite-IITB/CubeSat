@@ -3,11 +3,6 @@ import lqr_controller
 import lqr_constants
 
 
-def linear_dynamics(t, x):
-    u = lqr_controller.control_law(x)
-    return lqr_constants.m_A.dot(x) + lqr_constants.m_B.dot(u)
-
-
 def nonlinear_dynamics(t, x):
     q = x[0:3]
     w = x[3:6]
